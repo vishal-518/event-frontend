@@ -127,8 +127,7 @@ const EventBookingForm = () => {
           Book Your Dream Event
         </h2>
 
-        {/* FORM FIELDS (unchanged) */}
-        {/* ------------------------ */}
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-4">
 
