@@ -14,12 +14,24 @@ function Showbooking() {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("https://event-backend-cg59.onrender.com/api/events", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Please login to view bookings");
+        setLoading(false);
+        return;
+      }
+      
+      const response = await axios.get("http://localhost:4500/api/events", {
+        headers: { Authorization: `Bearer ${token}` },
       });
       setBookings(response.data);
     } catch (error) {
-      setError("Failed to fetch bookings");
+      if (error.response?.status === 403) {
+        setError("Access denied. Please login again.");
+        localStorage.removeItem("token");
+      } else {
+        setError("Failed to fetch bookings");
+      }
       console.error("Error fetching bookings:", error);
     } finally {
       setLoading(false);
