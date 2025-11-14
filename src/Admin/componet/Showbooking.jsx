@@ -21,7 +21,7 @@ function Showbooking() {
         return;
       }
       
-      const response = await axios.get("http://localhost:4500/api/events", {
+      const response = await axios.get("https://event-backend-cg59.onrender.com/api/events", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBookings(response.data);
