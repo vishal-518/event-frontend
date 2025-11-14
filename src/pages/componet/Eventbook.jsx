@@ -86,7 +86,7 @@ const EventBookingForm = () => {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:4500/api/events/create", formData, {
+      await axios.post("https://event-backend-cg59.onrender.com/api/events/create", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

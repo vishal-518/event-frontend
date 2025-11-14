@@ -10,7 +10,7 @@ function Deatialimage() {
   useEffect(() => {
     const fetchImageDetail = async () => {
       try {
-        const response = await axios.get(`http://localhost:4500/api/eventsimg/${id}`, {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}})
+        const response = await axios.get(`https://event-backend-cg59.onrender.com/api/eventsimg/${id}`, {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}})
         setDetail(response.data)
       } catch (error) {
         console.error('Error fetching image details:', error)
@@ -50,7 +50,7 @@ function Deatialimage() {
       <div className="max-w-4xl mx-auto">
         <div className="bg-gray-800 rounded-2xl overflow-hidden shadow-2xl">
           <img
-            src={`http://localhost:4500/${detail.image}`}
+            src={`https://event-backend-cg59.onrender.com/${detail.image}`}
             alt={detail.title}
             className="w-full h-96 object-cover"
           />

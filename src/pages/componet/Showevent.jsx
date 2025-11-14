@@ -7,7 +7,7 @@ const Showevent = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:4500/api/events", {
+        const response = await fetch("https://event-backend-cg59.onrender.com/api/events", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         const data = await response.json();
@@ -115,7 +115,7 @@ export default Showevent;
 //   useEffect(() => {
 //     const fetchEvents = async () => {
 //       try {
-//         const response = await fetch("http://localhost:4500/api/events", {
+//         const response = await fetch("https://event-backend-cg59.onrender.com/api/events", {
 //           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
 //         });
 //         const data = await response.json();

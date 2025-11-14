@@ -14,7 +14,7 @@ function Showbooking() {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("http://localhost:4500/api/events", {
+      const response = await axios.get("https://event-backend-cg59.onrender.com/api/events", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setBookings(response.data);
@@ -30,7 +30,7 @@ function Showbooking() {
   const updateStatus = async (id, newStatus) => {
     try {
       const response = await axios.put(
-        `http://localhost:4500/api/events/status/${id}`,
+        `https://event-backend-cg59.onrender.com/api/events/status/${id}`,
         { status: newStatus },
         {
           headers: {
@@ -56,7 +56,7 @@ function Showbooking() {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4500/api/events/${deleteId}`, {
+      await axios.delete(`https://event-backend-cg59.onrender.com/api/events/${deleteId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setBookings(bookings.filter((booking) => booking._id !== deleteId));

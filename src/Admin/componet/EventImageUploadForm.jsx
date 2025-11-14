@@ -59,7 +59,7 @@ const EventImageUploadForm = () => {
     data.append("venues", JSON.stringify(venues.filter(v => v.name.trim() !== ''))); 
 
     try {
-      await axios.post("http://localhost:4500/api/eventsimg/add", data, {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
+      await axios.post("https://event-backend-cg59.onrender.com/api/eventsimg/add", data, {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
       
       setSuccess(true);
       // Reset form on success

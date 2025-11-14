@@ -12,7 +12,7 @@ function Showuplodedimage() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const res = await axios.get("http://localhost:4500/api/eventsimg", {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
+        const res = await axios.get("https://event-backend-cg59.onrender.com/api/eventsimg", {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
         setUploadedImages(res.data);
       } catch (error) {
         console.error("Error fetching images:", error);
@@ -31,7 +31,7 @@ function Showuplodedimage() {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4500/api/eventsimg/${selectedId}`, {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
+      await axios.delete(`https://event-backend-cg59.onrender.com/api/eventsimg/${selectedId}`, {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
       setUploadedImages(uploadedImages.filter((img) => img._id !== selectedId));
       setPopup(false);
       setSelectedId(null);
@@ -84,7 +84,7 @@ function Showuplodedimage() {
               {/* Image with overlay */}
               <div className="relative group">
                 <img
-                  src={`http://localhost:4500/${img.image}`}
+                  src={`https://event-backend-cg59.onrender.com/${img.image}`}
                   alt={img.title || "Uploaded Image"}
                   className="h-64 w-full object-cover group-hover:opacity-80 transition duration-300"
                 />

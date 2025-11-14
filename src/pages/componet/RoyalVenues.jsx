@@ -6,7 +6,7 @@ export default function RoyalVenuesList() {
 
   const fectchapi = async () => {
     try {
-      const response = await fetch("http://localhost:4500/api/eventsimg");
+      const response = await fetch("https://event-backend-cg59.onrender.com/api/eventsimg");
       const data = await response.json();
       seteventapi(data);
     } catch (error) {
@@ -41,7 +41,7 @@ export default function RoyalVenuesList() {
             {/* City Image */}
             <div className="relative  overflow-hidden">
               <motion.img
-               src={`http://localhost:4500/${city.image}`}
+               src={`https://event-backend-cg59.onrender.com/${city.image}`}
                 alt={city.title}
                 className="w-full h-96 object-cover  transform transition-transform duration-[3000ms] hover:scale-110"
               />
