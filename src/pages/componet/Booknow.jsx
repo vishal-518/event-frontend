@@ -45,7 +45,6 @@ const BookNow = () => {
         },}
       );
       
-      console.log("Booking successful:", response.data);
       setSubmissionStatus({ type: 'success', message: '🎉 Booking confirmed! We will contact you shortly.' });
       
       setFormData({
@@ -54,8 +53,7 @@ const BookNow = () => {
       });
 
     } catch (error) {
-      console.error("Booking error:", error);
-      setSubmissionStatus({ type: 'error', message: 'Submission failed. Please try again later.' });
+      setSubmissionStatus({ type: 'error', message: 'Submission failed. Please login first.' });
     } finally {
       setIsLoading(false);
     }
