@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { hideloader } from "../../Redux/feacture/lodericonSlice";
+import { hideloader, showloader } from "../../Redux/feacture/lodericonSlice";
 
 function Showbooking() {
   const [bookings, setBookings] = useState([]);
@@ -17,6 +17,7 @@ function Showbooking() {
   const dispatch = useDispatch();
 
   const fetchBookings = async () => {
+    dispatch(showloader())
     try {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -111,15 +112,9 @@ function Showbooking() {
   return (
     <div className="min-h-screen bg-gray-900 text-white pt-20 p-6">
       <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold">🎟️ Your Bookings</h1>
+        <h1 className="text-3xl md:text-4xl font-bold"> Your Bookings</h1>
         <p className="text-gray-400 mt-2">Here are your upcoming shows and events</p>
       </div>
-
-      {error && (
-        <div className="text-center mb-6">
-          <p className="text-red-400">{error}</p>
-        </div>
-      )}
 
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {bookings.map((booking) => (
@@ -173,12 +168,7 @@ function Showbooking() {
         ))}
       </div>
 
-      {!loading && bookings.length === 0 && (
-        <div className="text-center mt-10 text-gray-400">
-          <p>No bookings found 😔</p>
-          <p className="text-sm mt-2">Book your first event to see it here!</p>
-        </div>
-      )}
+     
 
       {/* Delete Confirmation Popup */}
       {popup && (
