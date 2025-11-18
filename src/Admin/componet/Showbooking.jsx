@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { hideloader } from "../../Redux/feacture/lodericonSlice";
 
 function Showbooking() {
   const [bookings, setBookings] = useState([]);
   const [popup, setPopup] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [deleteId, setDeleteId] = useState(null);
 
@@ -12,15 +14,17 @@ function Showbooking() {
     fetchBookings();
   }, []);
 
+  const dispatch = useDispatch();
+
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
         setError("Please login to view bookings");
-        setLoading(false);
+        dispatch(hideloader());
         return;
       }
-      
+
       const response = await axios.get("https://event-backend-cg59.onrender.com/api/events", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -34,7 +38,7 @@ function Showbooking() {
       }
       console.error("Error fetching bookings:", error);
     } finally {
-      setLoading(false);
+      dispatch(hideloader());
     }
   };
 
@@ -94,13 +98,12 @@ function Showbooking() {
     });
   };
 
+  const loading = useSelector((state) => state.loader.loading);
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-          <p>Loading bookings...</p>
-        </div>
+      <div className="min-h-screen flex justify-center items-center bg-gray-900 text-white">
+        <Loader2 className="animate-spin h-10 w-10 text-yellow-400" />
       </div>
     );
   }

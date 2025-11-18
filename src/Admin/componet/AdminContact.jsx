@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Trash2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 
 function AdminContact() {
   const [contacts, setContacts] = useState([]);
@@ -51,13 +51,10 @@ function AdminContact() {
     fetchContacts();
   }, []);
 
-   if (loading) {
+  if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-          <p>Loading bookings...</p>
-        </div>
+      <div className="min-h-screen flex justify-center items-center bg-gray-900 text-white">
+        <Loader2 className="animate-spin h-10 w-10 text-yellow-400" />
       </div>
     );
   }

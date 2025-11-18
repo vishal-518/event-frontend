@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import axios from "axios"; 
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BookNow = () => {
   const [formData, setFormData] = useState({
@@ -15,9 +16,9 @@ const BookNow = () => {
     message: "",
   });
 
-  const [submissionStatus, setSubmissionStatus] = useState(null); 
+  const [submissionStatus, setSubmissionStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  let navigate = useNavigate()
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
@@ -34,24 +35,26 @@ const BookNow = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmissionStatus(null); 
+    setSubmissionStatus(null);
     setIsLoading(true);
 
     try {
       const response = await axios.post(
-        "https://event-backend-cg59.onrender.com/api/events/create",formData,{headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },}
+        "https://event-backend-cg59.onrender.com/api/events/create", formData, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+      }
       );
-      
+
       setSubmissionStatus({ type: 'success', message: '🎉 Booking confirmed! We will contact you shortly.' });
-      
+
       setFormData({
-        name: "", phone: "", email: "", eventType: "", date: "", 
+        name: "", phone: "", email: "", eventType: "", date: "",
         guests: "", venue: "", services: [], message: "",
       });
-
+      navigate('/show-event')
     } catch (error) {
       setSubmissionStatus({ type: 'error', message: 'Submission failed. Please login first.' });
     } finally {
@@ -125,11 +128,11 @@ const BookNow = () => {
                 "Makeup & Styling",
               ].map((label) => (
                 <label key={label} className="flex items-center gap-2 text-gray-700">
-                  <input 
-                    type="checkbox" 
-                    value={label} 
-                    onChange={handleChange} 
-                    
+                  <input
+                    type="checkbox"
+                    value={label}
+                    onChange={handleChange}
+
                     checked={formData.services.includes(label)} // Controlled checkbox state
                   />
                   {label}
@@ -138,23 +141,21 @@ const BookNow = () => {
             </div>
 
             <textarea name="message" placeholder="Additional Details" onChange={handleChange} value={formData.message} className="p-3 border rounded-lg w-full min-h-[100px]" />
-            
+
             {/* Submission Status Feedback */}
             {submissionStatus && (
-                <p className={`p-3 rounded-lg text-center font-semibold ${
-                    submissionStatus.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+              <p className={`p-3 rounded-lg text-center font-semibold ${submissionStatus.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                 }`}>
-                    {submissionStatus.message}
-                </p>
+                {submissionStatus.message}
+              </p>
             )}
 
-            <motion.button 
+            <motion.button
               type="submit"
-              whileHover={{ scale: 1.05 }} 
+              whileHover={{ scale: 1.05 }}
               disabled={isLoading}
-              className={`w-full text-white py-3 rounded-lg font-semibold transition ${
-                isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-rose-600 hover:bg-rose-700'
-              }`}
+              className={`w-full text-white py-3 rounded-lg font-semibold transition ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-rose-600 hover:bg-rose-700'
+                }`}
             >
               {isLoading ? "Booking..." : "Book Now"}
             </motion.button>

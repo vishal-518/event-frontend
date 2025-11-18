@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 function Showuplodedimage() {
   const [uploadedImages, setUploadedImages] = useState([]);
@@ -52,11 +53,8 @@ function Showuplodedimage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-black flex justify-center items-center">
-        <div className="text-center text-white animate-pulse">
-          <div className="h-12 w-12 border-4 border-t-transparent border-indigo-500 rounded-full mx-auto mb-4 animate-spin"></div>
-          <p className="text-lg text-gray-300">Loading images...</p>
-        </div>
+      <div className="min-h-screen flex justify-center items-center bg-gray-900 text-white">
+        <Loader2 className="animate-spin h-10 w-10 text-yellow-400" />
       </div>
     );
   }
